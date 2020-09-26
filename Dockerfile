@@ -7,4 +7,10 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o kubexit ./cmd/kubexit
 FROM alpine:3.11
 RUN apk --no-cache add ca-certificates tzdata
 COPY --from=builder /build/kubexit /bin/
-ENTRYPOINT ["kubexit"]
+
+ADD run.sh /run.sh
+RUN chmod +x /run.sh
+
+ENTRYPOINT ["/bin/sh", "-c"]
+
+CMD ["/run.sh"]

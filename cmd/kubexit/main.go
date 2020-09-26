@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -25,7 +26,9 @@ func main() {
 	var err error
 
 	// remove log timestamp
-	log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
+	//log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
+	log.SetFlags(0)
+	log.SetOutput(ioutil.Discard)
 
 	args := os.Args[1:]
 	if len(args) == 0 {
